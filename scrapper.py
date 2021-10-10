@@ -42,7 +42,9 @@ def get_timetable(from_date: str, to_date: str) -> Timetable:
 
         # Find start and end of a lecture and make datetime objects from them
         start = datetime.fromisoformat(element['start'][:-5])
+        start = start.replace(tzinfo=tz)
         end = datetime.fromisoformat(element['end'][:-5])
+        end = end.replace(tzinfo=tz)
 
         # The first part of the stripped title is an actual name of the lecture
         name = splitted[0].strip()
