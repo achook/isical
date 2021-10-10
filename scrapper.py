@@ -7,6 +7,9 @@ from datetime import datetime
 from classes import Lecture, TimeOff, Timetable
 from const import RAW_LINK
 
+from pytz import timezone
+tz = timezone('Europe/Warsaw')
+
 def get_timetable(from_date: str, to_date: str) -> Timetable:
     # The _ parameter is a timestamp but somehow it doesn't if it's correct
     # So why not hardcode it

@@ -8,6 +8,9 @@ from const import GROUPS
 from typing import List
 from classes import Lecture
 
+from pytz import timezone
+tz = timezone('Europe/Warsaw')
+
 from icalendar import Calendar, Event, vGeo
 
 def generate_and_upload(lectures: List[Lecture], coordinates) -> None:
@@ -22,7 +25,7 @@ def generate_and_upload(lectures: List[Lecture], coordinates) -> None:
         cal.add('version', '2.0')
         cal.add('calscale', 'GREGORIAN')
         cal.add('method', 'PUBLISH')
-        cal.add('X-WR-TIMEZONE', 'utc')
+        cal.add('X-WR-TIMEZONE', 'Europe/Warsaw')
         cal.add('X-WR-CALNAME', 'Zajęcia')
 
         # I have no idea what is happening from where up until
@@ -51,9 +54,9 @@ def generate_and_upload(lectures: List[Lecture], coordinates) -> None:
             event.add('summary', lecture.subject)
             event.add('dtstart', lecture.start)
             event.add('dtend', lecture.end)
-            event.add('dtstamp', datetime.now())
-            event.add('created', datetime.now())
-            event.add('last-modified', datetime.now())
+            event.add('dtstamp', datetime.now(tz=tz))
+            event.add('created', datetime.now(tz=tz))
+            event.add('last-modified', datetime.now(tz=tz))
             event.add('sequence', 0)
             event.add('status', 'confirmed')
             event.add('transp', 'opaque')
